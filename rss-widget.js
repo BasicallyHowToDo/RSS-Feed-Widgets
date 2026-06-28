@@ -331,7 +331,7 @@
       }
     });
 
-    container.insertBefore(bar, grid);
+    container.appendChild(bar);
   }
 
   /**
@@ -368,12 +368,12 @@
       grid.appendChild(card);
     });
 
-    // Filters (inserted before grid, so grid must be in DOM first)
-    container.appendChild(grid);
-
+    // Filters (appended before grid so they appear above it)
     if (config.showFilter) {
       attachFilters(feedData, container, grid);
     }
+
+    container.appendChild(grid);
   }
 
   /* ------------------------------------------------------------------ */
