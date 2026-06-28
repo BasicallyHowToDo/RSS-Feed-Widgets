@@ -2,7 +2,7 @@
 
 A lightweight, zero-dependency RSS feed widget built with vanilla JavaScript. Turn any RSS feed into a beautiful, responsive card grid with filtering, dark mode, and skeleton loading.
 
-**[Live Demo →](https://github.com/BasicallyHowToDo/RSS-Feed-Widgets)**
+**[Live Demo →](https://basicallyhowtodo.github.io/RSS-Feed-Widgets)**
 
 ## Features
 
@@ -19,15 +19,15 @@ A lightweight, zero-dependency RSS feed widget built with vanilla JavaScript. Tu
 ## Quick Start
 
 ```html
-<link rel="stylesheet" href="rss-widget.css" />
+<link rel="stylesheet" href="rss-widget.css">
 <script src="rss-widget.js"></script>
 
 <div id="rss-widget"></div>
 
 <script>
   RSSWidget.init({
-    feed: "https://how-to-do.net/feed.xml",
-    container: "#rss-widget",
+    feed: 'https://how-to-do.net/feed.xml',
+    container: '#rss-widget'
   });
 </script>
 ```
@@ -36,19 +36,19 @@ That's it. Two files, three lines.
 
 ## Configuration
 
-| Option              | Type     | Default                            | Description                                                              |
-| ------------------- | -------- | ---------------------------------- | ------------------------------------------------------------------------ |
-| `feed`              | string   | `'https://how-to-do.net/feed.xml'` | RSS feed URL                                                             |
-| `container`         | string   | `'#rss-widget'`                    | CSS selector for the container element                                   |
-| `maxItems`          | number   | `12`                               | Maximum number of cards to display                                       |
-| `showFilter`        | boolean  | `true`                             | Show category filter buttons                                             |
-| `showDate`          | boolean  | `true`                             | Show publication date on cards                                           |
-| `descriptionLength` | number   | `120`                              | Truncate descriptions to this length                                     |
-| `theme`             | string   | `'auto'`                           | `'auto'`, `'light'`, or `'dark'`                                         |
-| `corsProxy`         | string   | `null`                             | Proxy URL prefix for CORS (e.g. `'https://api.allorigins.win/raw?url='`) |
-| `skeletonCount`     | number   | `6`                                | Number of skeleton cards during loading                                  |
-| `onLoad`            | function | `null`                             | Callback when feed loads successfully                                    |
-| `onError`           | function | `null`                             | Callback when feed fails to load                                         |
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `feed` | string | `'https://how-to-do.net/feed.xml'` | RSS feed URL |
+| `container` | string | `'#rss-widget'` | CSS selector for the container element |
+| `maxItems` | number | `12` | Maximum number of cards to display |
+| `showFilter` | boolean | `true` | Show category filter buttons |
+| `showDate` | boolean | `true` | Show publication date on cards |
+| `descriptionLength` | number | `120` | Truncate descriptions to this length |
+| `theme` | string | `'auto'` | `'auto'`, `'light'`, or `'dark'` |
+| `corsProxy` | string | `null` | Proxy URL prefix for CORS (e.g. `'https://api.allorigins.win/raw?url='`) |
+| `skeletonCount` | number | `6` | Number of skeleton cards during loading |
+| `onLoad` | function | `null` | Callback when feed loads successfully |
+| `onError` | function | `null` | Callback when feed fails to load |
 
 ## Theming
 
@@ -74,8 +74,8 @@ For feeds without CORS headers, pass a proxy:
 
 ```javascript
 RSSWidget.init({
-  feed: "https://example.com/feed.xml",
-  corsProxy: "https://api.allorigins.win/raw?url=",
+  feed: 'https://example.com/feed.xml',
+  corsProxy: 'https://api.allorigins.win/raw?url='
 });
 ```
 
