@@ -1,0 +1,401 @@
+/**
+ * RSSWidget v1.0.0 — Stylesheet
+ *
+ * All rules are scoped under .rss-widget or [data-rss-theme]
+ * so they won't leak into the host page.
+ *
+ * Customise via CSS custom properties on :root or the container.
+ *
+ * @see https://github.com/YOUR_USERNAME/rss-feed-widget
+ */
+
+/* ------------------------------------------------------------------ */
+/*  Design tokens                                                     */
+/* ------------------------------------------------------------------ */
+
+:root {
+  --rss-font:            -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  --rss-bg:              #ffffff;
+  --rss-surface:         #ffffff;
+  --rss-border:          #e8e8e8;
+  --rss-text:            #1a1a2e;
+  --rss-text-secondary:  #6b7280;
+  --rss-text-muted:      #9ca3af;
+  --rss-accent:          #4f46e5;
+  --rss-accent-light:    #eef2ff;
+  --rss-shadow:          0 1px 3px rgba(0, 0, 0, 0.06);
+  --rss-shadow-hover:    0 8px 24px rgba(0, 0, 0, 0.08);
+  --rss-radius:          14px;
+  --rss-radius-sm:       8px;
+  --rss-radius-pill:     100px;
+  --rss-transition:      0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Auto dark mode (follows OS) */
+@media (prefers-color-scheme: dark) {
+  [data-rss-theme="auto"] {
+    --rss-bg:             #0f0f1a;
+    --rss-surface:        #1a1a2e;
+    --rss-border:         #2a2a3e;
+    --rss-text:           #e8e8f0;
+    --rss-text-secondary: #9ca3af;
+    --rss-text-muted:     #6b7280;
+    --rss-accent:         #818cf8;
+    --rss-accent-light:   #1e1b4b;
+    --rss-shadow:         0 1px 3px rgba(0, 0, 0, 0.2);
+    --rss-shadow-hover:   0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Forced dark mode */
+[data-rss-theme="dark"] {
+  --rss-bg:             #0f0f1a;
+  --rss-surface:        #1a1a2e;
+  --rss-border:         #2a2a3e;
+  --rss-text:           #e8e8f0;
+  --rss-text-secondary: #9ca3af;
+  --rss-text-muted:     #6b7280;
+  --rss-accent:         #818cf8;
+  --rss-accent-light:   #1e1b4b;
+  --rss-shadow:         0 1px 3px rgba(0, 0, 0, 0.2);
+  --rss-shadow-hover:   0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Container                                                         */
+/* ------------------------------------------------------------------ */
+
+.rss-widget {
+  font-family: var(--rss-font);
+  color: var(--rss-text);
+  max-width: 1200px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Header                                                            */
+/* ------------------------------------------------------------------ */
+
+.rss-header {
+  margin-bottom: 28px;
+}
+
+.rss-header h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.rss-header h2 a {
+  color: var(--rss-text);
+  text-decoration: none;
+  transition: color var(--rss-transition);
+}
+
+.rss-header h2 a:hover { color: var(--rss-accent); }
+
+.rss-header p {
+  color: var(--rss-text-secondary);
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Filter bar                                                        */
+/* ------------------------------------------------------------------ */
+
+.rss-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--rss-border);
+}
+
+.rss-filter {
+  background: var(--rss-surface);
+  border: 1px solid var(--rss-border);
+  padding: 7px 16px;
+  border-radius: var(--rss-radius-pill);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: var(--rss-font);
+  color: var(--rss-text-secondary);
+  transition: all var(--rss-transition);
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.rss-filter:hover {
+  border-color: var(--rss-accent);
+  color: var(--rss-accent);
+  background: var(--rss-accent-light);
+}
+
+.rss-filter:focus-visible {
+  outline: 2px solid var(--rss-accent);
+  outline-offset: 2px;
+}
+
+.rss-filter.active {
+  background: var(--rss-accent);
+  color: #ffffff;
+  border-color: var(--rss-accent);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Card grid                                                         */
+/* ------------------------------------------------------------------ */
+
+.rss-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 680px) {
+  .rss-grid { grid-template-columns: 1fr; }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Card                                                              */
+/* ------------------------------------------------------------------ */
+
+.rss-card {
+  background: var(--rss-surface);
+  border: 1px solid var(--rss-border);
+  border-radius: var(--rss-radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--rss-shadow);
+  transition:
+    box-shadow var(--rss-transition),
+    transform  var(--rss-transition),
+    border-color var(--rss-transition);
+  will-change: transform;
+
+  /* Entrance animation */
+  opacity: 0;
+  transform: translateY(12px);
+  animation: rss-card-in 0.4s ease forwards;
+}
+
+.rss-card:hover {
+  box-shadow: var(--rss-shadow-hover);
+  transform: translateY(-2px);
+  border-color: transparent;
+}
+
+@keyframes rss-card-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered entrance — first 12 cards */
+.rss-card:nth-child(1)  { animation-delay: 0.02s; }
+.rss-card:nth-child(2)  { animation-delay: 0.05s; }
+.rss-card:nth-child(3)  { animation-delay: 0.08s; }
+.rss-card:nth-child(4)  { animation-delay: 0.11s; }
+.rss-card:nth-child(5)  { animation-delay: 0.14s; }
+.rss-card:nth-child(6)  { animation-delay: 0.17s; }
+.rss-card:nth-child(7)  { animation-delay: 0.20s; }
+.rss-card:nth-child(8)  { animation-delay: 0.23s; }
+.rss-card:nth-child(9)  { animation-delay: 0.26s; }
+.rss-card:nth-child(10) { animation-delay: 0.29s; }
+.rss-card:nth-child(11) { animation-delay: 0.32s; }
+.rss-card:nth-child(12) { animation-delay: 0.35s; }
+
+/* Respect user motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .rss-card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .rss-card:hover {
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Card internals                                                    */
+/* ------------------------------------------------------------------ */
+
+.rss-card-category {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--rss-radius-pill);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  align-self: flex-start;
+  line-height: 1.4;
+}
+
+.rss-card-title {
+  margin: 0 0 10px;
+  font-size: 1.08rem;
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.rss-card-title a {
+  color: var(--rss-text);
+  text-decoration: none;
+  transition: color var(--rss-transition);
+}
+
+.rss-card-title a:hover { color: var(--rss-accent); }
+
+.rss-card-title a:focus-visible {
+  outline: 2px solid var(--rss-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.rss-card-date {
+  font-size: 0.78rem;
+  color: var(--rss-text-muted);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rss-card-date::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background: var(--rss-text-muted);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.rss-card-description {
+  font-size: 0.88rem;
+  color: var(--rss-text-secondary);
+  line-height: 1.6;
+  flex-grow: 1;
+  margin: 0;
+}
+
+.rss-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--rss-accent);
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 16px;
+  transition: gap var(--rss-transition);
+}
+
+.rss-card-link:hover  { gap: 10px; }
+
+.rss-card-link::after {
+  content: '\2192';   /* → */
+  font-size: 1rem;
+  transition: transform var(--rss-transition);
+}
+
+.rss-card-link:hover::after { transform: translateX(2px); }
+
+.rss-card-link:focus-visible {
+  outline: 2px solid var(--rss-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Skeleton loading                                                  */
+/* ------------------------------------------------------------------ */
+
+.rss-skeleton {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.rss-skeleton-card {
+  background: var(--rss-surface);
+  border: 1px solid var(--rss-border);
+  border-radius: var(--rss-radius);
+  padding: 24px;
+}
+
+.rss-skeleton-line {
+  background: linear-gradient(
+    90deg,
+    var(--rss-border) 25%,
+    transparent 50%,
+    var(--rss-border) 75%
+  );
+  background-size: 200% 100%;
+  animation: rss-shimmer 1.5s infinite ease-in-out;
+  border-radius: var(--rss-radius-sm);
+}
+
+.rss-skeleton-badge      { width: 90px;  height: 24px; margin-bottom: 16px; border-radius: var(--rss-radius-pill); }
+.rss-skeleton-title       { width: 85%;  height: 20px; margin-bottom: 10px; }
+.rss-skeleton-title-short { width: 60%;  height: 20px; margin-bottom: 14px; }
+.rss-skeleton-date        { width: 100px; height: 14px; margin-bottom: 14px; }
+.rss-skeleton-desc        { width: 100%; height: 14px; margin-bottom: 8px; }
+.rss-skeleton-desc-short  { width: 70%;  height: 14px; margin-bottom: 18px; }
+.rss-skeleton-link        { width: 100px; height: 16px; }
+
+@keyframes rss-shimmer {
+  0%   { background-position:  200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rss-skeleton-line { animation: none; }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Error + empty states                                              */
+/* ------------------------------------------------------------------ */
+
+.rss-error {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--rss-text-secondary);
+  border: 1px dashed var(--rss-border);
+  border-radius: var(--rss-radius);
+}
+
+.rss-error-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.rss-error p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.rss-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--rss-text-muted);
+  font-size: 0.92rem;
+}
